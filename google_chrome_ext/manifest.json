@@ -1,7 +1,7 @@
 {
-  "name": "Personal budget counter",
+  "name": "Lunatech personal budget counter",
   "version": "1.0",
-  "description": "tracks how much money left from your annual amount",
+  "description": "Tracks how much money left from your annual amount for Personal Budget",
   "permissions": [
     "storage",
     "activeTab",
@@ -18,18 +18,18 @@
   "browser_action": {
     "default_popup": "popup.html",
      "default_icon": {
-       "16": "images/get_started16.png",
-       "32": "images/get_started32.png",
-       "48": "images/get_started48.png",
-       "128": "images/get_started128.png"
+       "16": "images/logo16.ico",
+       "32": "images/logo32.png",
+       "48": "images/logo48.png",
+       "128": "images/logo128.png"
      },
      "default_title": "Expensify counter"
   },
   "icons": {
-    "16": "images/get_started16.png",
-    "32": "images/get_started32.png",
-    "48": "images/get_started48.png",
-    "128": "images/get_started128.png"
+    "16": "images/logo16.ico",
+    "32": "images/logo32.png",
+    "48": "images/logo48.png",
+    "128": "images/logo128.png"
   },
   "options_page": "options.html",
   "manifest_version": 2
