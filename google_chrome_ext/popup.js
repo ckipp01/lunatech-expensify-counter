@@ -1,6 +1,6 @@
 'use strict';
 
-let usedField = document.getElementById('used');
+let spentField = document.getElementById('spent');
 let leftField = document.getElementById('left');
 let limitField = document.getElementById('limit');
 
@@ -21,8 +21,8 @@ getCookies("https://www.expensify.com", "authToken", function(tokenCookie) {
     xmlHttp.onload = function() {
       if (xmlHttp.readyState === 4) {
         if (xmlHttp.status === 200) {
-          usedField.textContent = getUsedAmount(xmlHttp.response);
-          leftField.textContent = annualAmount - usedField.textContent;
+          spentField.textContent = getSpentAmount(xmlHttp.response);
+          leftField.textContent = annualAmount - spentField.textContent;
         } else {
           console.error(xmlHttp.xmlHttp);
         }
@@ -48,18 +48,18 @@ function getCookies(domain, name, callback) {
     });
 }
 
-function getUsedAmount(response) {
+function getSpentAmount(response) {
   var reports = JSON.parse(response);
   var currentYear = (new Date()).getFullYear();
-  var usedAmount = 0;
+  var spentAmount = 0;
   reports.reportListBeta.forEach(function (report) {
     //142B5AA09DC2F3BE is a policy for Personal Budget
     if (report.cachedData.expensify_policyID === "142B5AA09DC2F3BE" &&
         report.status === "Reimbursed" &&
         parseInt(report.submitted) === currentYear) {
       var amount = Number(report.cachedTotal.replace(/[^0-9.-]+/g,""));
-      usedAmount = usedAmount + amount;
+      spentAmount = spentAmount + amount;
     }
   });
-  return usedAmount;
+  return spentAmount;
 }
