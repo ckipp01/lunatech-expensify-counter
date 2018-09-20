@@ -2,15 +2,22 @@
 <html>
   <head>
     <style>
-      button {
+      /* button {
         height: 30px;
         width: 100px;
         outline: none;
+      } */
+      div {
+        width: 100px;
       }
     </style>
   </head>
   <body>
-    <button id="connect">Connect to expensify</button>
+    <div>
+      limit: <span id="limit"></span><br>
+      used: <span id="used"></span><br>
+      left:  <span id="left"></span>
+    </div>
     <script src="popup.js"></script>
   </body>
 </html>

@@ -2,10 +2,15 @@
   "name": "Personal budget counter",
   "version": "1.0",
   "description": "tracks how much money left from your annual amount",
-  "permissions": ["storage", "activeTab","webNavigation",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "webNavigation",
     "tabs",
     "http://*/*",
-    "https://*/*"],
+    "https://*/*",
+    "cookies"
+  ],
   "background": {
       "scripts": ["background.js"],
       "persistent": false
