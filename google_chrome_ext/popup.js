@@ -6,6 +6,7 @@ let limitField = document.getElementById('limit');
 
 let requestUrl = "https://www.expensify.com/api?states=&isAdvancedFilterMode=true&showEmpty=true&offset=0&sortBy=starred&returnValueList=reportListBeta&command=Get&pageName=reports&referer=www"
 var annualAmount = 0;
+let signInUrl = "https://www.expensify.com/signin";
 
 chrome.storage.sync.get('annualAmount', function(data) {
   if (data.annualAmount) {
@@ -21,8 +22,14 @@ getCookies("https://www.expensify.com", "authToken", function(tokenCookie) {
     xmlHttp.onload = function() {
       if (xmlHttp.readyState === 4) {
         if (xmlHttp.status === 200) {
-          spentField.textContent = getSpentAmount(xmlHttp.response);
-          leftField.textContent = annualAmount - spentField.textContent;
+          var jsonResponse = JSON.parse(xmlHttp.response);
+          //if token expired
+          if (jsonResponse.jsonCode && jsonResponse.jsonCode == 407) {
+            openTab(window.open(signInUrl, "SignIn"));
+          } else if (jsonResponse.reportListBeta) {
+            spentField.textContent = getSpentAmount(jsonResponse);
+            leftField.textContent = annualAmount - spentField.textContent;
+          }
         } else {
           console.error(xmlHttp.xmlHttp);
         }
@@ -30,7 +37,7 @@ getCookies("https://www.expensify.com", "authToken", function(tokenCookie) {
     }
     xmlHttp.send();
   } else {
-    openTab(window.open("https://www.expensify.com/signin", "SignIn"));
+    openTab(window.open(signInUrl, "SignIn"));
   }
 });
 
@@ -48,8 +55,7 @@ function getCookies(domain, name, callback) {
     });
 }
 
-function getSpentAmount(response) {
-  var reports = JSON.parse(response);
+function getSpentAmount(reports) {
   var currentYear = (new Date()).getFullYear();
   var spentAmount = 0;
   reports.reportListBeta.forEach(function (report) {
