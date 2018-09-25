@@ -1,6 +1,6 @@
 {
   "name": "Lunatech personal budget counter",
-  "version": "1.0",
+  "version": "1.2",
   "description": "Tracks how much money left from your annual amount for Personal Budget",
   "permissions": [
     "storage",
