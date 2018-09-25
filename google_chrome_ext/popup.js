@@ -11,7 +11,7 @@ let signInUrl = "https://www.expensify.com/signin";
 chrome.storage.sync.get('annualAmount', function(data) {
   if (data.annualAmount) {
     annualAmount = data.annualAmount;
-    limitField.textContent = annualAmount;
+    limitField.textContent = Number.parseFloat(annualAmount).toFixed(2);
   }
 });
 
@@ -27,8 +27,8 @@ getCookies("https://www.expensify.com", "authToken", function(tokenCookie) {
           if (jsonResponse.jsonCode && jsonResponse.jsonCode == 407) {
             openTab(window.open(signInUrl, "SignIn"));
           } else if (jsonResponse.reportListBeta) {
-            spentField.textContent = getSpentAmount(jsonResponse);
-            leftField.textContent = annualAmount - spentField.textContent;
+            spentField.textContent = Number.parseFloat(getSpentAmount(jsonResponse)).toFixed(2);
+            leftField.textContent = Number.parseFloat(annualAmount - spentField.textContent).toFixed(2);
           }
         } else {
           console.error(xmlHttp.xmlHttp);
